@@ -24,7 +24,8 @@ sudo apt install -y  apt-fast \
     vim \
     xz-utils
 
-cp -R ${SCRIPT_PATH}/home/* /home/${MYUSER}/
+shopt -s dotglob
+cp -r ${SCRIPT_PATH}/home/* /home/${MYUSER}/
 sudo cp -rp ${SCRIPT_PATH}/fs/* /
 
 # Gnome extensions
@@ -34,7 +35,7 @@ gnome-extensions disable desktop-icons@csoriano
 # install Nordic theme
 ## Global theme
 mkdir -p ~/.themes
-wget https://github.com/EliverLara/Nordic/releases/download/v2.1.0/Nordic-darker.tar.xz
+wget https://github.com/EliverLara/Nordic/releases/download/v2.1.0/Nordic-darker.tar.xz -O ${TMP}/Nordic-darker.tar.xz
 tar xJf ${TMP}/Nordic-darker.tar.xz -C ~/.themes
 gsettings set org.gnome.desktop.interface gtk-theme "Nordic-darker"
 gsettings set org.gnome.desktop.wm.preferences theme "Nordic-darker"
@@ -46,8 +47,8 @@ cp -R ${TMP}/Nordic/kde/cursors/Nordic-cursors/* ~/.icons/Nordic
 gsettings set org.gnome.desktop.interface cursor-theme "Nordic"
 
 ## Wallpaper
-gsettings set org.gnome.desktop.background picture-uri "file:////home/${MYUSER}/Pictures/#backgrounds/nordic-wall.jpg"
-gsettings set org.gnome.desktop.screensaver picture-uri "file:///home/${MYUSER}/Pictures/#backgrounds/nordic-wall.jpg"
+gsettings set org.gnome.desktop.background picture-uri "file:///home/${MYUSER}/Pictures/%23Backgrounds/nordic-wall.jpg"
+gsettings set org.gnome.desktop.screensaver picture-uri "file:///home/${MYUSER}/Pictures/%23Backgrounds/nordic-wall.jpg"
 
 ## Icons
 sudo apt-get install -y papirus-icon-theme papirus-folders
@@ -57,7 +58,7 @@ sudo papirus-folders -C nordic -t Papirus-Dark
 # login
 wget -qO - https://github.com/PRATAP-KUMAR/ubuntu-gdm-set-background/archive/main.tar.gz | tar zx --strip-components=1 ubuntu-gdm-set-background-main/ubuntu-gdm-set-background
 chmod +x ubuntu-gdm-set-background
-mv ubuntu-gdm-set-background /usr/sbin/gdm-set-background
+sudo mv ubuntu-gdm-set-background /usr/sbin/gdm-set-background
 sudo gdm-set-background --color \#233440
 
 ## install
@@ -84,6 +85,7 @@ cd $SCRIPT_PATH
 ## enable extensions
 gnome-extensions enable dash-to-panel@jderose9.github.com
 gnome-extensions enable latency-monitor@gitlab.labsatho.me
+gnome-extensions enable system-monitor@paradoxxxzero.zero.gmail.com
 
 ##restore exntensions settings
 dconf load /org/gnome/shell/extensions/ < ${SCRIPT_PATH}/dconf/extensions-settings.dconf
