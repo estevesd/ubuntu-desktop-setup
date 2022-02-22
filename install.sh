@@ -25,7 +25,7 @@ sudo apt install -y  apt-fast \
     xz-utils
 
 cp -R ${SCRIPT_PATH}/home/* /home/${MYUSER}/
-cp -R ${SCRIPT_PATH}/fs/* /
+sudo cp -rp ${SCRIPT_PATH}/fs/* /
 
 # Gnome extensions
 gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
